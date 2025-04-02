@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Restaurant & Browse Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+        .menu-section {
+            margin: 20px auto;
+            width: 80%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #ff5733;
+        }
+        .menu-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+        }
+        .menu-item {
+            width: 250px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+        }
+        .menu-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .price {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .category-select, .search-bar {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .proceed-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff5733;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .proceed-btn:disabled {
+            background: grey;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Your Restaurant & Browse Menu</h1>
+    
+    <input type="text" id="search" class="search-bar" placeholder="Search menu..." onkeyup="filterMenu()">
+    
+    <div class="menu-items" id="menu-container"></div>
+
+    <button class="proceed-btn" id="proceed-btn" onclick="proceedToPayment()" disabled>Proceed to Payment</button>
+    
+    <script>
+        const menus = {
+            veg: [
+                { name: "Indian Thali", price: 250, img: "Indian thali.png" },
+                { name: "Dosa", price: 140, img: "idli,dosa.png" },
+                { name: "Veg Biryani", price: 180, img: "veg_biryani.png" },
+                { name: "Paneer", price: 220, img: "Paneer.png" },
+                { name: "Dal Makhani", price: 200, img: "Dal_makhani.png" },
+                { name: "Stuffed Paratha", price: 100, img: "stuffed_paratha.png" }
+            ],
+            nonveg: [
+                { name: "Biryani", price: 250, img: "biryani.png" },
+                { name: "Fish", price: 300, img: "fish.png" },
+                { name: "Prawns", price: 350, img: "prawns.png" },
+                { name: "Mutton", price: 400, img: "mutton.png" },
+                { name: "KFC", price: 250, img: "kfc.png" },
+                { name: "Chicken Curry", price: 280, img: "chicken_curry.png" }
+            ],
+            snacks: [
+                { name: "Maggie", price: 50, img: "maggie.png" },
+                { name: "Noodles", price: 90, img: "noodles.png" },
+                { name: "Pizza", price: 250, img: "pizza.png" },
+                { name: "Burger", price: 120, img: "burger.png" },
+                { name: "French Fries", price: 80, img: "french_fries.png" },
+                { name: "Nachos", price: 150, img: "nachos.png" }
+            ]
+        };
+
+        let selectedItems = [];
+
+        function showMenu() {
+            const menuContainer = document.getElementById("menu-container");
+            menuContainer.innerHTML = "";
+            Object.values(menus).flat().forEach(item => {
+                let menuItem = document.createElement("div");
+                menuItem.classList.add("menu-item");
+                menuItem.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}">
+                    <p>${item.name}</p>
+                    <p class="price">₹${item.price}</p>
+                    <input type="checkbox" onchange="selectItem(this, '${item.name}', ${item.price})">
+                `;
+                menuContainer.appendChild(menuItem);
+            });
+        }
+
+        function filterMenu() {
+            let searchValue = document.getElementById("search").value.toLowerCase();
+            document.querySelectorAll(".menu-item").forEach(item => {
+                let itemName = item.querySelector("p").innerText.toLowerCase();
+                item.style.display = itemName.includes(searchValue) ? "block" : "none";
+            });
+        }
+
+        function selectItem(checkbox, name, price) {
+            if (checkbox.checked) {
+                selectedItems.push({ name, price });
+            } else {
+                selectedItems = selectedItems.filter(item => item.name !== name);
+            }
+            document.getElementById("proceed-btn").disabled = selectedItems.length === 0;
+        }
+
+        function proceedToPayment() {
+            localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+            let totalAmount = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            localStorage.setItem("totalAmount", totalAmount);
+            window.location.href = "payment.html";
+        }
+
+        window.onload = showMenu;
+    </script>
+</body>
+</html>

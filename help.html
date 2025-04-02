@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+        .support-section {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #ff5733;
+        }
+        .section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .section img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+        .support-form input, .support-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-btn, .feedback-btn {
+            background: #ff5733;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .submit-btn:hover, .feedback-btn:hover {
+            background: #d43f00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Help & Support</h1>
+    <div class="support-section">
+        
+        <div class="section">
+            <img src="contact.png" alt="Contact Us">
+            <div>
+                <h2>Contact Us</h2>
+                <p><strong>Email:</strong> support@fooddelivery.com</p>
+                <p><strong>Phone:</strong> +1 234 567 890</p>
+                <p><strong>Address:</strong> 123 Food Street, City, Country</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <img src="faq.png" alt="FAQs">
+            <div>
+                <h2>FAQs</h2>
+                <p><strong>Q: How do I track my order?</strong></p>
+                <p>A: You can track your order from the 'My Orders' section in your account.</p>
+                <p><strong>Q: Can I cancel my order?</strong></p>
+                <p>A: Yes, you can cancel before it is dispatched from the restaurant.</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <img src="help.png" alt="Need More Help?">
+            <div>
+                <h2>Need More Help?</h2>
+                <form class="support-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="5" placeholder="Describe your issue..." required></textarea>
+                    <button class="submit-btn">Submit</button>
+                </form>
+                <!-- Feedback Button -->
+                <a href="feedback.html" class="feedback-btn">Give Feedback</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

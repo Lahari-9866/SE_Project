@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: black;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+        .message {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        textarea {
+            width: 90%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+        }
+        .stars {
+            margin: 15px 0;
+        }
+        .star {
+            font-size: 30px;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .star:hover, .star.selected {
+            color: #ffcc00;
+        }
+        .submit-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            background: #ff5733;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background: #d43f00;
+        }
+        #thank-you {
+            display: none;
+            font-size: 22px;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function selectStar(rating) {
+            let stars = document.querySelectorAll(".star");
+            stars.forEach((star, index) => {
+                star.classList.toggle("selected", index < rating);
+            });
+            document.getElementById("rating").value = rating;
+        }
+
+        function submitFeedback() {
+            let feedbackText = document.getElementById("feedback").value.trim();
+            let rating = document.getElementById("rating").value;
+
+            if (rating === "0") {
+                alert("Please give a rating before submitting.");
+                return;
+            }
+
+            document.getElementById("feedback-section").style.display = "none";
+            document.getElementById("thank-you").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <h1>Feedback & Rating</h1>
+    <div class="container">
+        <p class="message">🎉 Your order has been delivered! Enjoy your meal! 🍽️</p>
+
+        <div id="feedback-section">
+            <h2>Write Your Feedback</h2>
+            <textarea id="feedback" placeholder="Write your feedback here..."></textarea>
+
+            <h2>Rate the Delivery</h2>
+            <div class="stars">
+                <span class="star" onclick="selectStar(1)">★</span>
+                <span class="star" onclick="selectStar(2)">★</span>
+                <span class="star" onclick="selectStar(3)">★</span>
+                <span class="star" onclick="selectStar(4)">★</span>
+                <span class="star" onclick="selectStar(5)">★</span>
+            </div>
+            <input type="hidden" id="rating" value="0">
+
+            <button class="submit-btn" onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+
+        <p id="thank-you">🙏 Thank you for visiting and ordering from our website! See you again! 😊</p>
+    </div>
+</body>
+</html>
